@@ -1,0 +1,24 @@
+-- Import Lotro libraries --
+import "Turbine";
+import "Turbine.UI.Lotro";
+
+-- Import utility scripts --
+import "LocalTimeDisplay.Scripts.Utility.RadioButton";
+import "LocalTimeDisplay.Scripts.Utility.DropDownList";
+
+-- Import scripts that are required for other scripts to work --
+import "LocalTimeDisplay.Scripts.Notification";
+import "LocalTimeDisplay.Scripts.SaveLoad";
+
+-- Import initialization --
+import "LocalTimeDisplay.Scripts.Init";
+import "LocalTimeDisplay.Scripts.Activation";
+
+-- Import main functionality --
+import "LocalTimeDisplay.Scripts.Main";
+
+-- Import settings window --
+import "LocalTimeDisplay.Scripts.Settings";
+
+-- Import commands --
+import "LocalTimeDisplay.Scripts.Commands";
