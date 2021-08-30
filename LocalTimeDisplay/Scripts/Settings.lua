@@ -2,7 +2,7 @@ plugin.GetOptionsPanel = function(self)
 
 	-- Create Options Panel --
 	optionsPanel = Turbine.UI.Control();
-	optionsPanel:SetSize(500, 580);
+	optionsPanel:SetSize(500, 600);
 
 
 	-- Time calibration title --
@@ -51,24 +51,28 @@ plugin.GetOptionsPanel = function(self)
 	timeCalibrationHoursTextBox:SetSize(50, 30);
 	timeCalibrationHoursTextBox:SetPosition(130, 100);
 	timeCalibrationHoursTextBox.FocusLost = function()
-		if (tonumber(timeCalibrationHoursTextBox:GetText()) == nil) then
+		local timeCalibrationHoursText = timeCalibrationHoursTextBox:GetText();
+		timeCalibrationHoursText = tonumber(timeCalibrationHoursText);
+
+		if (timeCalibrationHoursText == nil) then
 			timeCalibrationHoursTextBox:SetText("00");
 			return;
 		end
 
-		if (tonumber(timeCalibrationHoursTextBox:GetText()) > 23) then
-			timeCalibrationHoursTextBox:SetText("23");
-			return;
+		if (timeCalibrationHoursText > 23) then
+			timeCalibrationHoursText = 23;
 		end
 
-		if (tonumber(timeCalibrationHoursTextBox:GetText()) <= 0) then
+		if (timeCalibrationHoursText <= 0) then
+			timeCalibrationHoursText = 0;
+		end
+		
+		if (timeCalibrationHoursText == 0) then
 			timeCalibrationHoursTextBox:SetText("00");
-			return;
-		end
-
-		if (tonumber(timeCalibrationHoursTextBox:GetText()) < 10) then
-			timeCalibrationHoursTextBox:SetText("0" .. timeCalibrationHoursTextBox:GetText());
-			return;
+		elseif (timeCalibrationHoursText < 10) then
+			timeCalibrationHoursTextBox:SetText("0" .. tostring(timeCalibrationHoursText));
+		else
+			timeCalibrationHoursTextBox:SetText(tostring(timeCalibrationHoursText));
 		end
 	end
 
@@ -83,24 +87,28 @@ plugin.GetOptionsPanel = function(self)
 	timeCalibrationMinutesTextBox:SetSize(50, 30);
 	timeCalibrationMinutesTextBox:SetPosition(210, 100);
 	timeCalibrationMinutesTextBox.FocusLost = function()
-		if (tonumber(timeCalibrationMinutesTextBox:GetText()) == nil) then
+		local timeCalibrationMinutesText = timeCalibrationMinutesTextBox:GetText();
+		timeCalibrationMinutesText = tonumber(timeCalibrationMinutesText);
+
+		if (timeCalibrationMinutesText == nil) then
 			timeCalibrationMinutesTextBox:SetText("00");
 			return;
 		end
 
-		if (tonumber(timeCalibrationMinutesTextBox:GetText()) > 59) then
-			timeCalibrationMinutesTextBox:SetText("59");
-			return;
+		if (timeCalibrationMinutesText > 59) then
+			timeCalibrationMinutesText = 59;
 		end
 
-		if (tonumber(timeCalibrationMinutesTextBox:GetText()) <= 0) then
+		if (timeCalibrationMinutesText <= 0) then
+			timeCalibrationMinutesText = 0;
+		end
+		
+		if (timeCalibrationMinutesText == 0) then
 			timeCalibrationMinutesTextBox:SetText("00");
-			return;
-		end
-
-		if (tonumber(timeCalibrationMinutesTextBox:GetText()) < 10) then
-			timeCalibrationMinutesTextBox:SetText("0" .. timeCalibrationMinutesTextBox:GetText());
-			return;
+		elseif (timeCalibrationMinutesText < 10) then
+			timeCalibrationMinutesTextBox:SetText("0" .. tostring(timeCalibrationMinutesText));
+		else
+			timeCalibrationMinutesTextBox:SetText(tostring(timeCalibrationMinutesText));
 		end
 	end
 
@@ -151,38 +159,48 @@ plugin.GetOptionsPanel = function(self)
 		local calibrationHours = tonumber(timeCalibrationHoursTextBox:GetText());
 		local calibrationMinutes = tonumber(timeCalibrationMinutesTextBox:GetText());
 		calibrationTime = math.floor(Turbine.Engine.GetGameTime() - (calibrationHours * 3600) - (calibrationMinutes * 60));
-		saveCalibration();
 
 		time_label.updatelimiter = 9999;
 		if (settings["firstTime"]) then
 			settings["firstTime"] = false;
-			mainWindow:SetSize(90, 30);
+			mainWindow:SetSize(92, 20);
 			mainWindow:SetBackColor(Turbine.UI.Color(0, 0, 0, 0));
 			firstTime_label:SetVisible(false);
 		end
 
-		notification("Calibration has been completed! (Your local time has been set to " .. calibrationHours .. ":" .. calibrationMinutes .. ")");
+		saveCalibration();
+		saveSettings();
+		notification("Calibration has been completed!");
 	end
 
 
-	-- Additional Settings Label --
-	additionalSettingsTitle = Turbine.UI.Label();
-	additionalSettingsTitle:SetParent(optionsPanel);
-	additionalSettingsTitle:SetText("Additional Settings");
-	additionalSettingsTitle:SetSize(400, 30);
-	additionalSettingsTitle:SetPosition(0, 270);
-	additionalSettingsTitle:SetFont(Turbine.UI.Lotro.Font.TrajanPro18);
-	additionalSettingsTitle:SetTextAlignment(Turbine.UI.ContentAlignment.MiddleCenter);
-	additionalSettingsTitle:SetForeColor(color["yellow"]);
-	additionalSettingsTitle:SetFontStyle(Turbine.UI.FontStyle.Outline);
-	additionalSettingsTitle:SetBlendMode(Turbine.UI.BlendMode.AlphaBlend);
-	additionalSettingsTitle:SetBackground(Turbine.UI.Graphic("LocalTimeDisplay/Assets/Images/optionsTitleBackground.tga"));
+	-- Settings Label --
+	SettingsTitle = Turbine.UI.Label();
+	SettingsTitle:SetParent(optionsPanel);
+	SettingsTitle:SetText("Settings");
+	SettingsTitle:SetSize(400, 30);
+	SettingsTitle:SetPosition(0, 270);
+	SettingsTitle:SetFont(Turbine.UI.Lotro.Font.TrajanPro18);
+	SettingsTitle:SetTextAlignment(Turbine.UI.ContentAlignment.MiddleCenter);
+	SettingsTitle:SetForeColor(color["yellow"]);
+	SettingsTitle:SetFontStyle(Turbine.UI.FontStyle.Outline);
+	SettingsTitle:SetBlendMode(Turbine.UI.BlendMode.AlphaBlend);
+	SettingsTitle:SetBackground(Turbine.UI.Graphic("LocalTimeDisplay/Assets/Images/optionsTitleBackground.tga"));
 
+
+
+	timeFormatLabel = Turbine.UI.Label();
+	timeFormatLabel:SetParent(optionsPanel);
+	timeFormatLabel:SetSize(200, 50);
+	timeFormatLabel:SetPosition(50, 310);
+	timeFormatLabel:SetFont(Turbine.UI.Lotro.Font.Verdana16);
+	timeFormatLabel:SetText("Time format");
+	timeFormatLabel:SetForeColor(color["golden"]);
 
 	-- Time format settings --
-	local timeFormats = { "24 hour format", "AM/PM format",};
+	local timeFormats = { "24 hour", "AM/PM",};
 	local radioButtons = {};
-	local top = 320;
+	local top = 330;
 
 	for i = 1, #timeFormats do
 		radioButton = LocalTimeDisplay.Utility.RadioButton();
@@ -208,7 +226,7 @@ plugin.GetOptionsPanel = function(self)
 	fontSizeLabel = Turbine.UI.Label();
 	fontSizeLabel:SetParent(optionsPanel);
 	fontSizeLabel:SetSize(200, 50);
-	fontSizeLabel:SetPosition(50, 380);
+	fontSizeLabel:SetPosition(50, 390);
 	fontSizeLabel:SetFont(Turbine.UI.Lotro.Font.Verdana16);
 	fontSizeLabel:SetText("Font Size");
 	fontSizeLabel:SetForeColor(color["golden"]);
@@ -217,17 +235,17 @@ plugin.GetOptionsPanel = function(self)
 	fontSizeDropdown:SetParent(optionsPanel);
 	fontSizeDropdown:SetDropRows(5);
 	fontSizeDropdown:SetSize(200, 20);
-	fontSizeDropdown:SetPosition(50, 400);
+	fontSizeDropdown:SetPosition(50, 410);
 	fontSizeDropdown:SetZOrder(1002);
 	fontSizeDropdown:SetVisible(true);
 	fontSizeDropdown:SetBackColor(Turbine.UI.Color(0, 0, 0));
 	fontSizeDropdown:SetTextColor(Turbine.UI.Color(1, 1, 1));
 	fontSizeDropdown:SetCurrentBackColor(Turbine.UI.Color(0, 0, 0));
 
-	local fontSizes = { "10", "12", "14", "16", "18", "20", "22"};
+	local fontSizes = {"10", "12", "14", "16", "18", "20", "22", "23"};
 	for i = 1, #fontSizes do
-		fontSizeDropdown:AddItem(fontSizes[i], tonumber(fontSizes[i]));
-		if (settings["fontSize"] == tonumber(fontSizes[i])) then
+		fontSizeDropdown:AddItem(fontSizes[i], string.lower(fontSizes[i]));
+		if (settings["fontSize"] == string.lower(fontSizes[i])) then
 			fontSizeDropdown:SetSelectedIndex(i);
 		end
 	end
@@ -237,7 +255,7 @@ plugin.GetOptionsPanel = function(self)
 	fontColorLabel = Turbine.UI.Label();
 	fontColorLabel:SetParent(optionsPanel);
 	fontColorLabel:SetSize(200, 50);
-	fontColorLabel:SetPosition(50, 440);
+	fontColorLabel:SetPosition(50, 450);
 	fontColorLabel:SetFont(Turbine.UI.Lotro.Font.Verdana16);
 	fontColorLabel:SetText("Font Color");
 	fontColorLabel:SetForeColor(color["golden"]);
@@ -246,51 +264,53 @@ plugin.GetOptionsPanel = function(self)
 	fontColorDropdown:SetParent(optionsPanel);
 	fontColorDropdown:SetDropRows(5);
 	fontColorDropdown:SetSize(200, 20);
-	fontColorDropdown:SetPosition(50, 460);
+	fontColorDropdown:SetPosition(50, 470);
 	fontColorDropdown:SetZOrder(1001);
 	fontColorDropdown:SetVisible(true);
 	fontColorDropdown:SetBackColor(Turbine.UI.Color(0, 0, 0));
 	fontColorDropdown:SetTextColor(Turbine.UI.Color(1, 1, 1));
 	fontColorDropdown:SetCurrentBackColor(Turbine.UI.Color(0, 0, 0));
 
-	local fontColors = { "Gray", "White", "Black", "Golden", "Lightblue", "Orange", "Red", "Green"};
+	local fontColors = { "White", "Light Gray", "Gray", "Dark Gray", "golden", "yellow", "orange", "red", "lightred", "green", "darkgreen",  "lightblue"};
 	for i = 1, #fontColors do
-		fontColorDropdown:AddItem(fontColors[i], string.lower(fontColors[i]));
-		if (settings["fontColor"] == string.lower(fontColors[i])) then
+		fontColorDropdown:AddItem(fontColors[i], string.lower(string.gsub(fontColors[i], " ", "")));
+		if (settings["fontColor"] == string.lower(string.gsub(fontColors[i], " ", ""))) then
 			fontColorDropdown:SetSelectedIndex(i);
 		end
 	end
+
 
 	-- Lock window position label --
 	lockWindowPositionLabel = Turbine.UI.Label();
 	lockWindowPositionLabel:SetParent(optionsPanel);
 	lockWindowPositionLabel:SetSize(300, 30);
-	lockWindowPositionLabel:SetPosition(80, 500);
+	lockWindowPositionLabel:SetPosition(80, 510);
 	lockWindowPositionLabel:SetFont(Turbine.UI.Lotro.Font.Verdana16);
-	lockWindowPositionLabel:SetText("Lock time display position");
+	lockWindowPositionLabel:SetText("Lock timer position");
 	lockWindowPositionLabel:SetForeColor(color["golden"]);
+
 
 	-- Lock window position checkbox --
 	lockWindowPositionCheckbox = Turbine.UI.Lotro.CheckBox();
 	lockWindowPositionCheckbox:SetParent(optionsPanel);
 	lockWindowPositionCheckbox:SetSize(20, 20);
-	lockWindowPositionCheckbox:SetPosition(50, 499);
+	lockWindowPositionCheckbox:SetPosition(50, 509);
 	lockWindowPositionCheckbox:SetChecked(settings["lockWindow"]);
 
 
 	-- Save settings button --
 	saveSettingsButton = Turbine.UI.Lotro.Button();
-	saveSettingsButton:SetText("Save Additional Settings");
+	saveSettingsButton:SetText("Save Settings");
 	saveSettingsButton:SetParent(optionsPanel);
 	saveSettingsButton:SetSize(250, 20);
-	saveSettingsButton:SetPosition(50, 550);
+	saveSettingsButton:SetPosition(50, 560);
 	saveSettingsButton:SetZOrder(100);
 	saveSettingsButton.Click = function( sender, args)
 		settings["fontSize"] = fontSizeDropdown:GetValue();
 		settings["fontColor"] = fontColorDropdown:GetValue();
 		settings["lockWindow"] = lockWindowPositionCheckbox:IsChecked();
 		saveSettings();
-		updateUI();
+		updateFontStyles();
 		time_label.updatelimiter = 9999;
 		notification("Settings have been saved!");
 	end

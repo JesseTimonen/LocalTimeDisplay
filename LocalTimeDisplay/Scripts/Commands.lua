@@ -7,7 +7,13 @@ end
 
 -- Toggle visibility of the main window --
 function toggleVisibility()
-	mainWindow:SetVisible(not mainWindow:IsVisible());
+	if (mainWindow:IsVisible()) then
+		mainWindow:SetVisible(false);
+		notification("Time display has been hidden.");
+	else
+		mainWindow:SetVisible(true);
+		notification("Time display is visible again.");
+	end
 end
 
 -- Commands --
