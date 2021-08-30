@@ -4,6 +4,13 @@ mainWindow:SetPosition(windowPosition["xPos"], windowPosition["yPos"]);
 mainWindow:SetSize(92, 20);
 mainWindow:SetBackColor(Turbine.UI.Color(0, 0, 0, 0));
 mainWindow:SetVisible(true);
+mainWindow:SetWantsKeyEvents(true)
+function mainWindow:KeyDown(args)
+    -- Toggle visibility when HUD is toggled --
+    if (args.Action == 268435635) then
+        mainWindow:SetVisible(not mainWindow:IsVisible());
+    end
+end
 
 
 -- First time notification --
