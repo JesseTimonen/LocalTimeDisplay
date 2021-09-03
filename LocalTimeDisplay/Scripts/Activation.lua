@@ -5,11 +5,12 @@ end
 
 -- Unload Plugin --
 Plugins[pluginName].Unload = function()
-	savePosition();
+	saveLocalTimePosition();
+	saveServerTimePosition();
 	notification("Plugin has been deactivated.");
 end
 
 -- Load settings --
 loadSettings();
-loadPosition();
-loadCalibration();
+loadLocalTimePosition();
+loadServerTimePosition();

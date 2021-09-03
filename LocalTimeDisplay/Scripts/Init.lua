@@ -3,29 +3,41 @@ pluginName = "Local Time Display";
 
 -- Savefile names --
 settingsFileName = "LocalTimeDisplay_Settings";
-positionFileName = "LocalTimeDisplay_Position_Settings";
-calibrationFileName = "LocalTimeDisplay_Calibration_Settings";
+localTimePositionFileName = "LocalTimeDisplay_Local_Time_Position";
+serverTimePositionFileName = "LocalTimeDisplay_Server_Time_Position";
 
 -- Users screen size --
 screenWidth, screenHeight = Turbine.UI.Display:GetSize();
 
 -- Default settings --
 settings = {
-    timeFormat = "24 hour",
-    fontSize = "16",
-    fontColor = "gray",
-    lockWindow = false,
-    firstTime = true,
+    enableLocalTime = true,
+    displayLocalTimeTitle = true,
+    localTimeTitle = "Local Time",
+    localTimeFormat = "24 hour",
+    localTimeFontSize = "16",
+    localTimeColor = "grey",
+    localTimeLocked = false,
+    enableServerTime = false,
+    displayServerTimeTitle = false,
+    serverTimeTitle = "Server Time",
+    serverTimeFormat = "24 hour",
+    serverTimeFontSize = "16",
+    serverTimeColor = "grey",
+    serverTimeLocked = false,
 };
 
--- Default window position --
-windowPosition = {
-    xPos = screenWidth / 2,
+-- Default local time window position --
+localTimeWindowPosition = {
+    xPos = (screenWidth / 2) - 50,
     yPos = screenHeight / 2,
 };
 
--- Default calibration --
-calibrationTime = 0;
+-- Default server time window position --
+serverTimeWindowPosition = {
+    xPos = (screenWidth / 2) + 50,
+    yPos = screenHeight / 2,
+};
 
 -- Notification color codes --
 rgb = {
@@ -37,9 +49,9 @@ rgb = {
 -- Turbine colors --
 color = {
     black = Turbine.UI.Color(0, 0, 0),
-    darkgray = Turbine.UI.Color(0.4, 0.4, 0.35),
-    gray = Turbine.UI.Color(0.65, 0.64, 0.59),
-    lightgray = Turbine.UI.Color(0.8, 0.8, 0.75),
+    darkgrey = Turbine.UI.Color(0.4, 0.4, 0.35),
+    grey = Turbine.UI.Color(0.65, 0.64, 0.59),
+    lightgrey = Turbine.UI.Color(0.8, 0.8, 0.75),
     white = Turbine.UI.Color(1, 1, 1),
     golden = Turbine.UI.Color(242/255, 217/255, 140/255),
     yellow = Turbine.UI.Color(244/255, 255/255, 51/255),

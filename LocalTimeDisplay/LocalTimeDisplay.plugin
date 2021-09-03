@@ -3,14 +3,12 @@
     <Information>
     <Name>Local Time Display</Name>
         <Author>Henna</Author>
-        <Version>1.0.2</Version>
+        <Version>1.1.0</Version>
         <Image>LocalTimeDisplay/Assets/Images/icon.tga</Image>
 <Description>
 DESCRIPTION
 ¯¯¯¯¯¯¯¯¯¯¯
-This simple plugin allows you to see your local time on your screen at all times.
-
-After you have installed and activated the plugin please go to plugin options and set your local time.
+This simple plugin allows you to see your local and server time on your screen at all times.
 
 You can toggle the time display's visibility by using command "/localtimedisplay"
 </Description>

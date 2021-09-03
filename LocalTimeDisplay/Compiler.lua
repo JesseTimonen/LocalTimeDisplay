@@ -15,10 +15,12 @@ import "LocalTimeDisplay.Scripts.Init";
 import "LocalTimeDisplay.Scripts.Activation";
 
 -- Import main functionality --
-import "LocalTimeDisplay.Scripts.Main";
+import "LocalTimeDisplay.Scripts.MainLocalTime";
+import "LocalTimeDisplay.Scripts.MainServerTime";
+
 
 -- Import settings window --
-import "LocalTimeDisplay.Scripts.Settings";
+import "LocalTimeDisplay.Scripts.OptionsPanel";
 
 -- Import commands --
 import "LocalTimeDisplay.Scripts.Commands";

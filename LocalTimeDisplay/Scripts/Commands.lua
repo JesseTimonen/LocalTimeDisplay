@@ -7,11 +7,13 @@ end
 
 -- Toggle visibility of the main window --
 function toggleVisibility()
-	if (mainWindow:IsVisible()) then
-		mainWindow:SetVisible(false);
+	if (localTimeWindow:IsVisible()) then
+		localTimeWindow:SetVisible(false);
+		serverTimeWindow:SetVisible(false);
 		notification("Time display has been hidden.");
 	else
-		mainWindow:SetVisible(true);
+		localTimeWindow:SetVisible(true);
+		serverTimeWindow:SetVisible(true);
 		notification("Time display is visible again.");
 	end
 end
