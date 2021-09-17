@@ -2,7 +2,7 @@ plugin.GetOptionsPanel = function(self)
 
 	-- Create Options Panel --
 	optionsPanel = Turbine.UI.Control();
-	optionsPanel:SetSize(800, 1050);
+	optionsPanel:SetSize(800, 1000);
 
 
 	-- Local time settings title --
@@ -167,28 +167,12 @@ plugin.GetOptionsPanel = function(self)
 	lockLocalTimeWindowTextbox:SetChecked(settings["localTimeLocked"]);
 
 
-	-- Local time offscreen help button --
-	localTimeOffscreenButton = Turbine.UI.Lotro.Button();
-	localTimeOffscreenButton:SetText("Reset Local Time Position");
-	localTimeOffscreenButton:SetParent(optionsPanel);
-	localTimeOffscreenButton:SetSize(250, 20);
-	localTimeOffscreenButton:SetPosition(50, 450);
-	localTimeOffscreenButton:SetZOrder(100);
-	localTimeOffscreenButton.Click = function( sender, args)
-		localTimeWindowPosition["xPos"] = (screenWidth / 2) - 50;
-		localTimeWindowPosition["yPos"] = screenHeight / 2;
-		localTimeWindow:SetPosition(localTimeWindowPosition["xPos"], localTimeWindowPosition["yPos"]);
-		localTimeWindow.positionHasBeenModified = true;
-		notification("Local time's position has been resetted.");
-	end
-
-
 	-- Server time settings title --
 	serverTimeSettingsTitle = Turbine.UI.Label();
 	serverTimeSettingsTitle:SetParent(optionsPanel);
 	serverTimeSettingsTitle:SetText("Server Time Settings");
 	serverTimeSettingsTitle:SetSize(400, 30);
-	serverTimeSettingsTitle:SetPosition(0, 515);
+	serverTimeSettingsTitle:SetPosition(0, 475);
 	serverTimeSettingsTitle:SetFont(Turbine.UI.Lotro.Font.TrajanPro18);
 	serverTimeSettingsTitle:SetTextAlignment(Turbine.UI.ContentAlignment.MiddleCenter);
 	serverTimeSettingsTitle:SetForeColor(color["yellow"]);
@@ -201,14 +185,14 @@ plugin.GetOptionsPanel = function(self)
 	enableServerTimeLabel = Turbine.UI.Label();
 	enableServerTimeLabel:SetParent(optionsPanel);
 	enableServerTimeLabel:SetSize(300, 30);
-	enableServerTimeLabel:SetPosition(80, 570);
+	enableServerTimeLabel:SetPosition(80, 530);
 	enableServerTimeLabel:SetFont(Turbine.UI.Lotro.Font.Verdana16);
 	enableServerTimeLabel:SetText("Enable server time");
 	enableServerTimeLabel:SetForeColor(color["golden"]);
 	enableServerTimeCheckbox = Turbine.UI.Lotro.CheckBox();
 	enableServerTimeCheckbox:SetParent(optionsPanel);
 	enableServerTimeCheckbox:SetSize(20, 20);
-	enableServerTimeCheckbox:SetPosition(50, 569);
+	enableServerTimeCheckbox:SetPosition(50, 529);
 	enableServerTimeCheckbox:SetChecked(settings["enableServerTime"]);
 
 
@@ -216,14 +200,14 @@ plugin.GetOptionsPanel = function(self)
 	enableServerTimeTitleLabel = Turbine.UI.Label();
 	enableServerTimeTitleLabel:SetParent(optionsPanel);
 	enableServerTimeTitleLabel:SetSize(300, 30);
-	enableServerTimeTitleLabel:SetPosition(80, 610);
+	enableServerTimeTitleLabel:SetPosition(80, 570);
 	enableServerTimeTitleLabel:SetFont(Turbine.UI.Lotro.Font.Verdana16);
 	enableServerTimeTitleLabel:SetText("Enable server time title");
 	enableServerTimeTitleLabel:SetForeColor(color["golden"]);
 	enableServerTimeTitleCheckbox = Turbine.UI.Lotro.CheckBox();
 	enableServerTimeTitleCheckbox:SetParent(optionsPanel);
 	enableServerTimeTitleCheckbox:SetSize(20, 20);
-	enableServerTimeTitleCheckbox:SetPosition(50, 609);
+	enableServerTimeTitleCheckbox:SetPosition(50, 569);
 	enableServerTimeTitleCheckbox:SetChecked(settings["displayServerTimeTitle"]);
 
 
@@ -231,7 +215,7 @@ plugin.GetOptionsPanel = function(self)
 	serverTimeTitleLabel = Turbine.UI.Label();
 	serverTimeTitleLabel:SetParent(optionsPanel);
 	serverTimeTitleLabel:SetSize(300, 30);
-	serverTimeTitleLabel:SetPosition(50, 650);
+	serverTimeTitleLabel:SetPosition(50, 610);
 	serverTimeTitleLabel:SetFont(Turbine.UI.Lotro.Font.Verdana16);
 	serverTimeTitleLabel:SetText("Server Time Title:");
 	serverTimeTitleLabel:SetForeColor(color["golden"]);
@@ -241,21 +225,21 @@ plugin.GetOptionsPanel = function(self)
 	serverTimeTitleTextbox:SetFont(Turbine.UI.Lotro.Font.Verdana16);
 	serverTimeTitleTextbox:SetText(settings["serverTimeTitle"]);
 	serverTimeTitleTextbox:SetSize(250, 20);
-	serverTimeTitleTextbox:SetPosition(50, 670);
+	serverTimeTitleTextbox:SetPosition(50, 630);
 
 
 	-- Server time format --
 	serverTimeFormatLabel = Turbine.UI.Label();
 	serverTimeFormatLabel:SetParent(optionsPanel);
 	serverTimeFormatLabel:SetSize(200, 50);
-	serverTimeFormatLabel:SetPosition(50, 710);
+	serverTimeFormatLabel:SetPosition(50, 670);
 	serverTimeFormatLabel:SetFont(Turbine.UI.Lotro.Font.Verdana16);
 	serverTimeFormatLabel:SetText("Time format:");
 	serverTimeFormatLabel:SetForeColor(color["golden"]);
 
 	local serverTimeFormats = { "24 hour", "AM/PM",};
 	local serverTimeFormatRadioButtons = {};
-	local top = 730;
+	local top = 690;
 	for i = 1, #serverTimeFormats do
 		serverTimeFormatRadioButton = LocalTimeDisplay.Utility.RadioButton();
 		serverTimeFormatRadioButton:SetParent(optionsPanel);
@@ -280,7 +264,7 @@ plugin.GetOptionsPanel = function(self)
 	serverTimeFontSizeLabel = Turbine.UI.Label();
 	serverTimeFontSizeLabel:SetParent(optionsPanel);
 	serverTimeFontSizeLabel:SetSize(200, 50);
-	serverTimeFontSizeLabel:SetPosition(50, 790);
+	serverTimeFontSizeLabel:SetPosition(50, 750);
 	serverTimeFontSizeLabel:SetFont(Turbine.UI.Lotro.Font.Verdana16);
 	serverTimeFontSizeLabel:SetText("Font Size:");
 	serverTimeFontSizeLabel:SetForeColor(color["golden"]);
@@ -288,7 +272,7 @@ plugin.GetOptionsPanel = function(self)
 	serverTimeFontSizeDropdown:SetParent(optionsPanel);
 	serverTimeFontSizeDropdown:SetDropRows(5);
 	serverTimeFontSizeDropdown:SetSize(200, 20);
-	serverTimeFontSizeDropdown:SetPosition(50, 810);
+	serverTimeFontSizeDropdown:SetPosition(50, 770);
 	serverTimeFontSizeDropdown:SetZOrder(1002);
 	serverTimeFontSizeDropdown:SetVisible(true);
 	serverTimeFontSizeDropdown:SetBackColor(Turbine.UI.Color(0, 0, 0));
@@ -307,7 +291,7 @@ plugin.GetOptionsPanel = function(self)
 	serverTimeColorLabel = Turbine.UI.Label();
 	serverTimeColorLabel:SetParent(optionsPanel);
 	serverTimeColorLabel:SetSize(200, 50);
-	serverTimeColorLabel:SetPosition(50, 850);
+	serverTimeColorLabel:SetPosition(50, 810);
 	serverTimeColorLabel:SetFont(Turbine.UI.Lotro.Font.Verdana16);
 	serverTimeColorLabel:SetText("Font Color:");
 	serverTimeColorLabel:SetForeColor(color["golden"]);
@@ -315,7 +299,7 @@ plugin.GetOptionsPanel = function(self)
 	serverTimeColorDropdown:SetParent(optionsPanel);
 	serverTimeColorDropdown:SetDropRows(5);
 	serverTimeColorDropdown:SetSize(200, 20);
-	serverTimeColorDropdown:SetPosition(50, 870);
+	serverTimeColorDropdown:SetPosition(50, 830);
 	serverTimeColorDropdown:SetZOrder(1001);
 	serverTimeColorDropdown:SetVisible(true);
 	serverTimeColorDropdown:SetBackColor(Turbine.UI.Color(0, 0, 0));
@@ -334,31 +318,15 @@ plugin.GetOptionsPanel = function(self)
 	lockServerTimeWindowLabel = Turbine.UI.Label();
 	lockServerTimeWindowLabel:SetParent(optionsPanel);
 	lockServerTimeWindowLabel:SetSize(300, 30);
-	lockServerTimeWindowLabel:SetPosition(80, 910);
+	lockServerTimeWindowLabel:SetPosition(80, 870);
 	lockServerTimeWindowLabel:SetFont(Turbine.UI.Lotro.Font.Verdana16);
 	lockServerTimeWindowLabel:SetText("Lock server time position");
 	lockServerTimeWindowLabel:SetForeColor(color["golden"]);
 	lockServerTimeWindowTextbox = Turbine.UI.Lotro.CheckBox();
 	lockServerTimeWindowTextbox:SetParent(optionsPanel);
 	lockServerTimeWindowTextbox:SetSize(20, 20);
-	lockServerTimeWindowTextbox:SetPosition(50, 909);
+	lockServerTimeWindowTextbox:SetPosition(50, 869);
 	lockServerTimeWindowTextbox:SetChecked(settings["serverTimeLocked"]);
-
-
-	-- Server time offscreen help button --
-	serverTimeOffscreenButton = Turbine.UI.Lotro.Button();
-	serverTimeOffscreenButton:SetText("Reset Server Time Position");
-	serverTimeOffscreenButton:SetParent(optionsPanel);
-	serverTimeOffscreenButton:SetSize(250, 20);
-	serverTimeOffscreenButton:SetPosition(50, 940);
-	serverTimeOffscreenButton:SetZOrder(100);
-	serverTimeOffscreenButton.Click = function( sender, args)
-		serverTimeWindowPosition["xPos"] = (screenWidth / 2) + 50;
-		serverTimeWindowPosition["yPos"] = screenHeight / 2;
-		serverTimeWindow:SetPosition(serverTimeWindowPosition["xPos"], serverTimeWindowPosition["yPos"]);
-		serverTimeWindow.positionHasBeenModified = true;
-		notification("Server time's position has been resetted.");
-	end
 
 
 	-- Save settings button --
@@ -366,7 +334,7 @@ plugin.GetOptionsPanel = function(self)
 	saveSettingsButton:SetText("Save Settings");
 	saveSettingsButton:SetParent(optionsPanel);
 	saveSettingsButton:SetSize(250, 20);
-	saveSettingsButton:SetPosition(50, 1000);
+	saveSettingsButton:SetPosition(50, 920);
 	saveSettingsButton:SetZOrder(100);
 	saveSettingsButton.Click = function( sender, args)
 		settings["enableLocalTime"] = enableLocalTimeCheckbox:IsChecked();
@@ -387,6 +355,52 @@ plugin.GetOptionsPanel = function(self)
 		localTimeLabel.updatelimiter = 9999;
 		serverTimeLabel.updatelimiter = 9999;
 		notification("Settings have been saved!");
+	end
+
+
+	-- Troubleshoot title --
+	localTimeSettingsTitle = Turbine.UI.Label();
+	localTimeSettingsTitle:SetParent(optionsPanel);
+	localTimeSettingsTitle:SetText("Troubleshoot");
+	localTimeSettingsTitle:SetSize(400, 30);
+	localTimeSettingsTitle:SetPosition(300, 25);
+	localTimeSettingsTitle:SetFont(Turbine.UI.Lotro.Font.TrajanPro18);
+	localTimeSettingsTitle:SetTextAlignment(Turbine.UI.ContentAlignment.MiddleCenter);
+	localTimeSettingsTitle:SetForeColor(color["yellow"]);
+	localTimeSettingsTitle:SetFontStyle(Turbine.UI.FontStyle.Outline);
+	localTimeSettingsTitle:SetBlendMode(Turbine.UI.BlendMode.AlphaBlend);
+	localTimeSettingsTitle:SetBackground(Turbine.UI.Graphic("LocalTimeDisplay/Images/optionsTitleBackground.tga"));
+
+
+	-- Local time offscreen help button --
+	localTimeOffscreenButton = Turbine.UI.Lotro.Button();
+	localTimeOffscreenButton:SetText("Reset Local Time Position");
+	localTimeOffscreenButton:SetParent(optionsPanel);
+	localTimeOffscreenButton:SetSize(250, 20);
+	localTimeOffscreenButton:SetPosition(380, 80);
+	localTimeOffscreenButton:SetZOrder(100);
+	localTimeOffscreenButton.Click = function( sender, args)
+		localTimeWindowPosition["xPos"] = (screenWidth / 2) - 50;
+		localTimeWindowPosition["yPos"] = screenHeight / 2;
+		localTimeWindow:SetPosition(localTimeWindowPosition["xPos"], localTimeWindowPosition["yPos"]);
+		localTimeWindow.positionHasBeenModified = true;
+		notification("Local time's position has been resetted.");
+	end
+
+
+	-- Server time offscreen help button --
+	serverTimeOffscreenButton = Turbine.UI.Lotro.Button();
+	serverTimeOffscreenButton:SetText("Reset Server Time Position");
+	serverTimeOffscreenButton:SetParent(optionsPanel);
+	serverTimeOffscreenButton:SetSize(250, 20);
+	serverTimeOffscreenButton:SetPosition(380, 120);
+	serverTimeOffscreenButton:SetZOrder(100);
+	serverTimeOffscreenButton.Click = function( sender, args)
+		serverTimeWindowPosition["xPos"] = (screenWidth / 2) + 50;
+		serverTimeWindowPosition["yPos"] = screenHeight / 2;
+		serverTimeWindow:SetPosition(serverTimeWindowPosition["xPos"], serverTimeWindowPosition["yPos"]);
+		serverTimeWindow.positionHasBeenModified = true;
+		notification("Server time's position has been resetted.");
 	end
 
 
