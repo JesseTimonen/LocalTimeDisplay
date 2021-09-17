@@ -1,0 +1,18 @@
+<?xml version = "1.0"?>
+<Plugin> 
+    <Information>
+    <Name>Local Time Display</Name>
+        <Author>Henna</Author>
+        <Version>1.1.0</Version>
+        <Image>LocalTimeDisplay/Images/icon.tga</Image>
+<Description>
+DESCRIPTION
+¯¯¯¯¯¯¯¯¯¯¯
+This simple plugin allows you to see your local and server time on your screen at all times.
+
+You can toggle the time display's visibility by using command "/localtimedisplay"
+</Description>
+    </Information>
+    <Package>LocalTimeDisplay.Compiler</Package>
+    <Configuration Apartment = "LocalTimeDisplay" />
+</Plugin>
