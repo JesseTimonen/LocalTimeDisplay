@@ -3,6 +3,8 @@ import "Turbine";
 import "Turbine.UI.Lotro";
 
 -- Import utility scripts --
+import "LocalTimeDisplay.Scripts.Utility.Class";
+import "LocalTimeDisplay.Scripts.Utility.Type";
 import "LocalTimeDisplay.Scripts.Utility.RadioButton";
 import "LocalTimeDisplay.Scripts.Utility.DropDownList";
 
