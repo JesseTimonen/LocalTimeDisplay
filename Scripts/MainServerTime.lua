@@ -45,11 +45,17 @@ serverTimeLabel.Update = function()
     if (serverTimeLabel.updatelimiter < 500) then return; end
     serverTimeLabel.updatelimiter = 0;
 
+    -- Check daylight saving time
+    local day_light_saving_time = 0;
+    if (Turbine.Engine.GetDate()["IsDST"]) then
+        day_light_saving_time = 1;
+    end
+
     -- Turbine.Engine.GetLocalTime() returns seconds passed since 1.1.1970 in GMT timezone --
     local serverTime = Turbine.Engine.GetLocalTime();
 
-    -- Convert GMT to server's timezone (GMT-4) and parse the time of day --
-    serverTime = (serverTime - (3600 * 4)) % 86400;
+    -- Convert GMT to server's timezone (GMT-5) and parse the time of day --
+    serverTime = (serverTime - (3600 * (5 - day_light_saving_time))) % 86400;
 
     local hours = math.floor(serverTime / 3600);
     local minutes = math.floor((serverTime % 3600) / 60);
