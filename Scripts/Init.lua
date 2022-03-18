@@ -25,6 +25,7 @@ settings = {
     serverTimeFontSize = "16",
     serverTimeColor = "grey",
     serverTimeLocked = false,
+    selectedDaylightSavingMethod = "automatic",
 };
 
 -- Default local time window position --

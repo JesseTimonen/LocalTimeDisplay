@@ -349,6 +349,7 @@ plugin.GetOptionsPanel = function(self)
 		settings["serverTimeFontSize"] = serverTimeFontSizeDropdown:GetValue();
 		settings["serverTimeColor"] = serverTimeColorDropdown:GetValue();
 		settings["serverTimeLocked"] = lockServerTimeWindowTextbox:IsChecked();
+		settings["selectedDaylightSavingMethod"] = manualDaylightSavingTimeDropdown:GetValue();
 		saveSettings();
 		updateLocalTimeUI();
 		updateServerTimeUI();
@@ -402,6 +403,42 @@ plugin.GetOptionsPanel = function(self)
 		serverTimeWindow.positionHasBeenModified = true;
 		notification("Server time's position has been resetted.");
 	end
+
+
+	-- Local time font size --
+	manualDaylightSavingTimeLabel = Turbine.UI.Label();
+	manualDaylightSavingTimeLabel:SetParent(optionsPanel);
+	manualDaylightSavingTimeLabel:SetSize(250, 50);
+	manualDaylightSavingTimeLabel:SetPosition(380, 170);
+	manualDaylightSavingTimeLabel:SetFont(Turbine.UI.Lotro.Font.Verdana16);
+	manualDaylightSavingTimeLabel:SetText("Server Time's Daylight Saving Time:");
+	manualDaylightSavingTimeLabel:SetForeColor(color["golden"]);
+	manualDaylightSavingTimeDropdown = LocalTimeDisplay.Utility.DropDownList();
+	manualDaylightSavingTimeDropdown:SetParent(optionsPanel);
+	manualDaylightSavingTimeDropdown:SetDropRows(5);
+	manualDaylightSavingTimeDropdown:SetSize(200, 20);
+	manualDaylightSavingTimeDropdown:SetPosition(380, 190);
+	manualDaylightSavingTimeDropdown:SetZOrder(1002);
+	manualDaylightSavingTimeDropdown:SetVisible(true);
+	manualDaylightSavingTimeDropdown:SetBackColor(Turbine.UI.Color(0, 0, 0));
+	manualDaylightSavingTimeDropdown:SetTextColor(Turbine.UI.Color(1, 1, 1));
+	manualDaylightSavingTimeDropdown:SetCurrentBackColor(Turbine.UI.Color(0, 0, 0));
+	local daylightSavingTimeOptions = {"ON", "OFF", "Automatic"};
+	for i = 1, #daylightSavingTimeOptions do
+		manualDaylightSavingTimeDropdown:AddItem(daylightSavingTimeOptions[i], string.lower(daylightSavingTimeOptions[i]));
+		if (settings["selectedDaylightSavingMethod"] == string.lower(daylightSavingTimeOptions[i])) then
+			manualDaylightSavingTimeDropdown:SetSelectedIndex(i);
+		end
+	end
+
+
+	manualDaylightSavingTimeNote = Turbine.UI.Label();
+	manualDaylightSavingTimeNote:SetParent(optionsPanel);
+	manualDaylightSavingTimeNote:SetSize(250, 100);
+	manualDaylightSavingTimeNote:SetPosition(380, 225);
+	manualDaylightSavingTimeNote:SetFont(Turbine.UI.Lotro.Font.Verdana16);
+	manualDaylightSavingTimeNote:SetText("Automatic daylight saving time uses your local time, so there may be a delay if the server's daylight saving time does not change at the same time as yours.");
+	manualDaylightSavingTimeNote:SetForeColor(color["grey"]);
 
 
 	-- Return View --

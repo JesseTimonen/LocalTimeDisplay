@@ -44,6 +44,7 @@ function loadSettings()
     if (settings["serverTimeFontSize"] == nil) then settings["serverTimeFontSize"] = "16"; end
     if (settings["serverTimeColor"] == nil) then settings["serverTimeColor"] = "grey"; end
     if (type(settings["serverTimeLocked"]) ~= "boolean") then settings["serverTimeLocked"] = false; end
+    if (settings["selectedDaylightSavingMethod"] == nil) then settings["selectedDaylightSavingMethod"] = "automatic"; end
 end
 
 
